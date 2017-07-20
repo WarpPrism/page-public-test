@@ -1,0 +1,171 @@
+*
+{
+    box-sizing: border-box;
+
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+
+    -webkit-touch-callout: none;
+     -khtml-user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+       -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+        -ms-tap-highlight-color: rgba(0, 0, 0, 0);
+         -o-tap-highlight-color: rgba(0, 0, 0, 0);
+            tap-highlight-color: rgba(0, 0, 0, 0);
+}
+html
+{
+    font-family: '黑体','Microsoft YaHei','Arial','宋体',sans-serif;
+    /* rem standard */
+    font-size: 16px;
+
+    width: 100%;
+}
+body
+{
+    position: relative;
+
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+h1,
+h2,
+h3,
+p
+{
+    font-size: 1rem;
+
+    margin: 0;
+    padding: 0;
+}
+a,
+a:visited,
+a:active
+{
+    text-decoration: none;
+}
+.page-wrap
+{
+    position: relative;
+
+    overflow: hidden;
+
+    width: 100%;
+    height: 37.69rem;
+
+    background: url('../imgs/page2/background.png') no-repeat;
+    background-position: 0 -4rem;
+    background-size: cover;
+}
+.sponsor-logos
+{
+    position: absolute;
+    top: 1.5rem;
+
+    width: 100%;
+    height: 1.5rem;
+
+    background: url('../imgs/page2/sponsor-logo.png') no-repeat;
+    background-position: center;
+    background-size: 8rem;
+}
+.section
+{
+    width: 100%;
+
+    text-align: center;
+}
+.activity-header1
+{
+    position: absolute;
+    top: 5rem;
+
+    height: 1.06rem;
+
+    background: url('../imgs/page2/header1.png') no-repeat;
+    background-position: 4.16rem;
+    background-size: 15.16rem;
+}
+.activity-header2
+{
+    position: absolute;
+    top: 7.25rem;
+
+    height: 2.5rem;
+
+    background: url('../imgs/page2/header2.png') no-repeat;
+    background-position: 2.84rem;
+    background-size: 17.7rem;
+}
+.activity-content1
+{
+    position: absolute;
+    top: 16.22rem;
+
+    width: 100%;
+
+    text-align: center;
+}
+.activity-content1 p
+{
+    font-size: 1.1rem;
+    font-weight: 600;
+
+    color: #fff;
+}
+.activity-content2
+{
+    position: absolute;
+    top: 21rem;
+
+    width: 100%;
+
+    text-align: center;
+}
+.activity-content2 p
+{
+    font-size: 1.1rem;
+    font-weight: 600;
+
+    color: #fff;
+}
+
+
+.activity-btn
+{
+    line-height: 2.78rem;
+
+    position: absolute;
+    top: 28.8rem;
+    left: 4.1rem;
+
+    display: block;
+
+    width: 15.28rem;
+    height: 2.78rem;
+
+    text-align: center;
+
+    color: #fff;
+    border-radius: 2rem;
+    background: #d75e2c;
+}
+.activity-time
+{
+    position: absolute;
+    top: 32.1rem;
+
+    width: 100%;
+}
+.activity-time p
+{
+    font-size: .9rem;
+    font-weight: bold;
+
+    text-align: center;
+
+    color: #fff;
+}

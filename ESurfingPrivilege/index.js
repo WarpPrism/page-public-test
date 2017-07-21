@@ -4,13 +4,15 @@
 function fAutoResize() {
     var availWidth = document.documentElement.clientWidth || window.screen.width;
     var newFontSize = Math.round(16 * (availWidth / 375));
-    // console.log('resize');·
+    
     document.documentElement.style.fontSize = newFontSize + 'px';
+    var realfz = ~~(+(window.getComputedStyle(document.getElementsByTagName("html")[0]).fontSize.replace('px',''))*10000)/10000;
+    // console.log(newFontSize, realfz);
+    document.documentElement.style.fontSize = newFontSize*(newFontSize/realfz) + 'px';
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
     fAutoResize();
-    
 });
 
 window.onload = function() {
@@ -38,24 +40,34 @@ window.onload = function() {
         window.location.href = 'http://m.7daysinn.cn/maserati/ext/static/brands/brands.html?brandId_1&f=1';
     }, false);
 
-    if (typeof(WeixinJSBridge) == "undefined") {  
-        document.addEventListener("WeixinJSBridgeReady", function (e) {  
-            setTimeout(function(){  
-                WeixinJSBridge.invoke('setFontSizeCallback',{"fontSize":0}, function(res) {  
-                    // alert(JSON.stringify(res));  
-                });  
-            },0);  
-        });  
-    } else {  
-        setTimeout(function(){  
-            WeixinJSBridge.invoke('setFontSizeCallback',{"fontSize":0}, function(res) {  
-                // alert(JSON.stringify(res));  
-            });  
-        },0);  
+    if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
+        handleFontSize();
+    } else {
+        if (document.addEventListener) {
+            document.addEventListener("WeixinJSBridgeReady", handleFontSize, false);
+        } else if (document.attachEvent) {
+            document.attachEvent("WeixinJSBridgeReady", handleFontSize);
+            document.attachEvent("onWeixinJSBridgeReady", handleFontSize);
+        }
+    }    
+    function handleFontSize() {
+        // 设置网页字体为默认大小
+        WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize' : 0 });        
+        // 重写设置网页字体大小的事件
+        WeixinJSBridge.on('menu:setfont', function() {
+            WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize' : 0 });
+        });
+        fAutoResize();
     }
+
+    var oldFontSize = ~~(+(window.getComputedStyle(document.getElementsByTagName("html")[0]).fontSize.replace('px',''))*10000)/10000;
+    var fontTimer = setInterval(function() {
+        var newFontSize = ~~(+(window.getComputedStyle(document.getElementsByTagName("html")[0]).fontSize.replace('px',''))*10000)/10000;
+        if (newFontSize != oldFontSize) {
+            fAutoResize();
+        }
+    }, 700);
 }
 
 window.onresize = fAutoResize;
 window.onorientationchange = fAutoResize;
-
-

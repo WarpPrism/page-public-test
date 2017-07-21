@@ -11,12 +11,8 @@ function fAutoResize() {
     document.documentElement.style.fontSize = newFontSize*(newFontSize/realfz) + 'px';
 }
 
-document.addEventListener("DOMContentLoaded", function(event) {
-    fAutoResize();
-});
-
-window.onload = function() {
-
+// 云涛数据同步
+function fSyncYunTao() {
     var flowBtn = document.getElementById('flowBtn');
     var readBillBtn = document.getElementById('readBillBtn');
     var nameVerifybtn = document.getElementById('nameVerifybtn');
@@ -39,6 +35,15 @@ window.onload = function() {
         _uxt.push(['_trackEvent', '天翼特权大放送' , '点击', '7天酒店领券', 1]);
         window.location.href = 'http://m.7daysinn.cn/maserati/ext/static/brands/brands.html?brandId_1&f=1';
     }, false);
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    fAutoResize();
+});
+
+window.onload = function() {
+
+    fSyncYunTao();
 
     if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
         handleFontSize();
@@ -60,13 +65,19 @@ window.onload = function() {
         fAutoResize();
     }
 
-    var oldFontSize = ~~(+(window.getComputedStyle(document.getElementsByTagName("html")[0]).fontSize.replace('px',''))*10000)/10000;
-    var fontTimer = setInterval(function() {
-        var newFontSize = ~~(+(window.getComputedStyle(document.getElementsByTagName("html")[0]).fontSize.replace('px',''))*10000)/10000;
-        if (newFontSize != oldFontSize) {
-            fAutoResize();
-        }
-    }, 700);
+    // wap页面字体改变时，重新计算rem
+    var ua = navigator.userAgent;
+    var isAndroid = ua.indexOf('Android') > -1 || ua.indexOf('Adr') > -1;
+    var isIOS =  !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if (isAndroid || isIOS) {
+        var oldFontSize = ~~(+(window.getComputedStyle(document.getElementsByTagName("html")[0]).fontSize.replace('px',''))*10000)/10000;
+        var fontTimer = setInterval(function() {
+            var newFontSize = ~~(+(window.getComputedStyle(document.getElementsByTagName("html")[0]).fontSize.replace('px',''))*10000)/10000;
+            if (newFontSize != oldFontSize) {
+                fAutoResize();
+            }
+        }, 700);
+    }
 }
 
 window.onresize = fAutoResize;

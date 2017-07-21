@@ -11,17 +11,22 @@ function fAutoResize() {
     document.documentElement.style.fontSize = newFontSize*(newFontSize/realfz) + 'px';
 }
 
-document.addEventListener("DOMContentLoaded", function(event) {
-    fAutoResize();
-});
-
-window.onload = function() {
+// 云涛数据同步
+function fSyncYunTao() {
     var downloadEsurfingAppBtn = document.getElementById('downloadEsurfingAppBtn');
 
     downloadEsurfingAppBtn.addEventListener('click', function(e) {
         _uxt.push(['_trackEvent', '天翼用户中心携手铂涛旅行送你99元体验券' , '点击', '客户端下载', 1]);
         window.location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=cn.com.chinatelecom.account';
     }, false);
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    fAutoResize();
+});
+
+window.onload = function() {
+    fSyncYunTao();
 
     if (typeof WeixinJSBridge == "object" && typeof WeixinJSBridge.invoke == "function") {
         handleFontSize();
@@ -40,6 +45,20 @@ window.onload = function() {
         WeixinJSBridge.on('menu:setfont', function() {
             WeixinJSBridge.invoke('setFontSizeCallback', { 'fontSize' : 0 });
         });
+    }
+
+    // wap页面字体改变时，重新计算rem
+    var ua = navigator.userAgent;
+    var isAndroid = ua.indexOf('Android') > -1 || ua.indexOf('Adr') > -1;
+    var isIOS =  !!ua.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if (isAndroid || isIOS) {
+        var oldFontSize = ~~(+(window.getComputedStyle(document.getElementsByTagName("html")[0]).fontSize.replace('px',''))*10000)/10000;
+        var fontTimer = setInterval(function() {
+            var newFontSize = ~~(+(window.getComputedStyle(document.getElementsByTagName("html")[0]).fontSize.replace('px',''))*10000)/10000;
+            if (newFontSize != oldFontSize) {
+                fAutoResize();
+            }
+        }, 700);
     }
 }
 

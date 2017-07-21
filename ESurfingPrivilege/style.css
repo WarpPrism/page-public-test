@@ -12,7 +12,8 @@
        -moz-tap-highlight-color: rgba(0, 0, 0, 0);
         -ms-tap-highlight-color: rgba(0, 0, 0, 0);
          -o-tap-highlight-color: rgba(0, 0, 0, 0);
-            tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-text-size-adjust: none !important;
+       -moz-text-size-adjust: none !important;
 }
 html
 {
@@ -56,7 +57,7 @@ p
 {
     position: absolute;
     top: 13.5rem;
-    left: 2.6rem;
+    left: 2.5rem;
 
     box-sizing: border-box;
     height: 6rem;
